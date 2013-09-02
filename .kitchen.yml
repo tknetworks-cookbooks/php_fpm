@@ -8,9 +8,13 @@ platforms:
   driver_config:
     box: debian-wheezy
     box_url: http://projects.tsuntsun.net/~nabeken/boxes/vagrant-debian-wheezy.box
+  run_list:
+  - recipe[apt]
 
 suites:
 - name: default
   run_list:
-  - recipe[php-fpm]
+  - recipe[php_fpm]
+  - recipe[php_fpm::www]
+  - recipe[php_fpm_test::www_template]
   - recipe[minitest-handler]

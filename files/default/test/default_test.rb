@@ -15,13 +15,18 @@
 #
 require 'minitest/spec'
 
-describe_recipe 'php-fpm::default' do
+describe_recipe 'php_fpm::default' do
   it 'installs php-fpm package' do
-    package(node['php-fpm']['package']).must_be_installed
+    package(node['php_fpm']['package']).must_be_installed
   end
 
   it 'enables/starts php-fpm service' do
-    service(node['php-fpm']['service']['pattern']).must_be_running
-    service(node['php-fpm']['service']['name']).must_be_enabled
+    service(node['php_fpm']['service']['pattern']).must_be_running
+    service(node['php_fpm']['service']['name']).must_be_enabled
+  end
+
+  it 'configures www pool' do
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www.conf").must_include '[www]'
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www.conf").must_include 'listen = /var/run/php5-fpm-www.sock'
   end
 end

@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'chefspec'
+require 'minitest/spec'
 
-shared_context 'debian' do
-  def set_node(node)
-    node.automatic_attrs['platform'] = 'debian'
-    node.automatic_attrs['kernel']['machine'] = 'x86_64'
-    node.automatic_attrs['etc']['passwd']['root']['gid'] = 0
+describe_recipe 'php_fpm_test::www_template' do
+  it 'configures www template pool' do
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include '[www_template]'
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include 'listen = /var/run/php5-fpm-www_template.sock'
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include 'THIS IS A CUSTOM TEMPLATE'
   end
 end

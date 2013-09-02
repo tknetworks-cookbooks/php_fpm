@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-package node['php-fpm']['package'] do
+package node['php_fpm']['package'] do
   action :install
 end
 
-service node['php-fpm']['service']['name'] do
+service node['php_fpm']['service']['name'] do
   action [:enable, :start]
-  pattern node['php-fpm']['service']['pattern']
+  pattern node['php_fpm']['service']['pattern']
 end
