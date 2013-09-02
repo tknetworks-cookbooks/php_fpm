@@ -1,4 +1,4 @@
-name             "php-fpm"
+name             "php_fpm"
 maintainer       "TKNetworks"
 maintainer_email "nabeken@tknetworks.org"
 license          "Apache 2.0"
