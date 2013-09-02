@@ -13,9 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-case platform
+case node['platform']
 when 'debian'
-  default['php-fpm']['package'] = 'php5-fpm'
-  default['php-fpm']['service']['name'] = 'php5-fpm'
-  default['php-fpm']['service']['pattern'] = 'php-fpm: master process'
+  default['php_fpm']['package'] = 'php5-fpm'
+  default['php_fpm']['service']['name'] = 'php5-fpm'
+  default['php_fpm']['service']['pattern'] = 'php-fpm: master process'
+  default['php_fpm']['conf_dir'] = '/etc/php5/fpm'
 end

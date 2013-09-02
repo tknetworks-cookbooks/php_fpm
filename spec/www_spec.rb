@@ -13,12 +13,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'chefspec'
 
-shared_context 'debian' do
-  def set_node(node)
-    node.automatic_attrs['platform'] = 'debian'
-    node.automatic_attrs['kernel']['machine'] = 'x86_64'
-    node.automatic_attrs['etc']['passwd']['root']['gid'] = 0
+require 'spec_helper'
+
+describe 'php_fpm::www' do
+  include_context 'debian'
+
+  let (:chef_run) {
+    ChefSpec::ChefRunner.new(:step_into => %w{php_fpm_pool}, :log_level => :debug) do |node|
+      set_node(node)
+    end
+  }
+
+  it 'should configure [www] pool' do
+    chef_run.converge('php_fpm::www')
+    conf = chef_run.template("#{chef_run.node['php_fpm']['conf_dir']}/pool.d/www.conf")
+    expect(conf.variables).to eq(
+      :user => 'www-data',
+      :group => 'www-data',
+      :name => 'www',
+      :variables => {}
+    )
   end
 end

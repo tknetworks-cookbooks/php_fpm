@@ -15,22 +15,28 @@
 #
 require 'spec_helper'
 
-describe 'php-fpm::default' do
+describe 'php_fpm::default' do
   include_context 'debian'
 
+  let (:chef_run) {
+    ChefSpec::ChefRunner.new() do |node|
+      set_node(node)
+    end
+  }
+
   before do
-    chef_run.converge('php-fpm::default')
+    chef_run.converge('php_fpm::default')
   end
 
   it 'should install php-fpm' do
-    expect(chef_run).to install_package chef_run.node['php-fpm']['package']
+    expect(chef_run).to install_package chef_run.node['php_fpm']['package']
   end
 
   it 'should enable/start php-fpm' do
-    expect(chef_run).to set_service_to_start_on_boot chef_run.node['php-fpm']['service']['name']
-    expect(chef_run).to start_service chef_run.node['php-fpm']['service']['name']
+    expect(chef_run).to set_service_to_start_on_boot chef_run.node['php_fpm']['service']['name']
+    expect(chef_run).to start_service chef_run.node['php_fpm']['service']['name']
 
-    service = chef_run.service(chef_run.node['php-fpm']['service']['name'])
-    expect(service.pattern).to eq(chef_run.node['php-fpm']['service']['pattern'])
+    service = chef_run.service(chef_run.node['php_fpm']['service']['name'])
+    expect(service.pattern).to eq(chef_run.node['php_fpm']['service']['pattern'])
   end
 end

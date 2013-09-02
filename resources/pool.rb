@@ -13,12 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'chefspec'
+actions :create, :remove
+default_action :create
 
-shared_context 'debian' do
-  def set_node(node)
-    node.automatic_attrs['platform'] = 'debian'
-    node.automatic_attrs['kernel']['machine'] = 'x86_64'
-    node.automatic_attrs['etc']['passwd']['root']['gid'] = 0
-  end
-end
+attribute :user,       :kind_of => String,          :default => nil
+attribute :group,      :kind_of => String,          :default => nil
+attribute :template,   :regex => /^[a-z_.]+.erb$/,  :default => nil
+attribute :variables,  :kind_of => Hash,            :default => {}
