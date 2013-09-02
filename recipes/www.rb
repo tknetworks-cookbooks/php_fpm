@@ -13,12 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'chefspec'
-
-shared_context 'debian' do
-  def set_node(node)
-    node.automatic_attrs['platform'] = 'debian'
-    node.automatic_attrs['kernel']['machine'] = 'x86_64'
-    node.automatic_attrs['etc']['passwd']['root']['gid'] = 0
-  end
+php_fpm_pool 'www' do
+  action :create
+  user 'www-data'
+  group 'www-data'
 end
