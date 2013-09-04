@@ -32,7 +32,10 @@ describe 'php_fpm::www' do
       :user => 'www-data',
       :group => 'www-data',
       :name => 'www',
+      :sock => '/var/run/php5-fpm-www.sock',
       :variables => {}
     )
+    pool = chef_run.find_resource('php_fpm_pool', 'www')
+    expect(pool.sock).to eq('/var/run/php5-fpm-www.sock')
   end
 end

@@ -20,6 +20,8 @@ def whyrun_supported?
 end
 
 action :create do
+  new_resource.sock("/var/run/php5-fpm-#{new_resource.name}.sock") unless new_resource.sock
+
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
@@ -31,6 +33,7 @@ action :create do
       variables :user => new_resource.user,
                 :group => new_resource.group,
                 :name => new_resource.name,
+                :sock => new_resource.sock,
                 :variables => new_resource.variables
       action :nothing
       notifies :restart, "service[#{node['php_fpm']['service']['name']}]"
@@ -45,6 +48,7 @@ action :create do
       variables :user => new_resource.user,
                 :group => new_resource.group,
                 :name => new_resource.name,
+                :sock => new_resource.sock,
                 :variables => new_resource.variables
       action :nothing
       notifies :restart, "service[#{node['php_fpm']['service']['name']}]"

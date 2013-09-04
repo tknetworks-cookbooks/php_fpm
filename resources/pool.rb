@@ -19,4 +19,5 @@ default_action :create
 attribute :user,       :kind_of => String,          :default => nil
 attribute :group,      :kind_of => String,          :default => nil
 attribute :template,   :regex => /^[a-z_.]+.erb$/,  :default => nil
+attribute :sock,       :kind_of => String,          :default => nil
 attribute :variables,  :kind_of => Hash,            :default => {}
