@@ -20,4 +20,5 @@ php_fpm_pool 'www' do
   action :create
   user 'www-data'
   group 'www-data'
+  notifies :restart, "service[#{node['php_fpm']['service']['name']}]"
 end

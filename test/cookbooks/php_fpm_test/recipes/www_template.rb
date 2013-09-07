@@ -18,5 +18,5 @@ php_fpm_pool 'www_template' do
   user 'www-data'
   group 'www-data'
   template 'pool.conf.erb'
-  sock '/var/run/www_template_oreno.sock'
+  sock 'unix:/var/run/www_template_oreno.sock'
 end

@@ -24,5 +24,5 @@ attribute :variables,  :kind_of => Hash,            :default => {}
 
 # return a default value based on @name
 def sock(arg=nil)
-  _set_or_return_sock(arg) || "/var/run/php5-fpm-#{@name}.sock"
+  _set_or_return_sock(arg) || "unix:/var/run/php5-fpm-#{@name}.sock"
 end
