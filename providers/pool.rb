@@ -20,8 +20,6 @@ def whyrun_supported?
 end
 
 action :create do
-  new_resource.sock("/var/run/php5-fpm-#{new_resource.name}.sock") unless new_resource.sock
-
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 

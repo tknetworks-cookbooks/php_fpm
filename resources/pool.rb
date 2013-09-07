@@ -21,3 +21,8 @@ attribute :group,      :kind_of => String,          :default => nil
 attribute :template,   :regex => /^[a-z_.]+.erb$/,  :default => nil
 attribute :sock,       :kind_of => String,          :default => nil
 attribute :variables,  :kind_of => Hash,            :default => {}
+
+# return a default value based on @name
+def sock(arg=nil)
+  _set_or_return_sock(arg) || "/var/run/php5-fpm-#{@name}.sock"
+end

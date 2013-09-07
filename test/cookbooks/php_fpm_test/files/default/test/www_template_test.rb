@@ -18,7 +18,7 @@ require 'minitest/spec'
 describe_recipe 'php_fpm_test::www_template' do
   it 'configures www template pool' do
     file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include '[www_template]'
-    file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include 'listen = /var/run/php5-fpm-www_template.sock'
+    file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include 'listen = /var/run/www_template_oreno.sock'
     file("#{node['php_fpm']['conf_dir']}/pool.d/www_template.conf").must_include 'THIS IS A CUSTOM TEMPLATE'
   end
 end
